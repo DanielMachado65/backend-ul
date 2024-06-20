@@ -1,0 +1,79 @@
+version: '3.1'
+
+services:
+  mongo-setup:
+    image: mongo:5.0.18
+    container_name: mongo-setup
+    restart: on-failure
+    networks:
+      default:
+    volumes:
+      - ./scripts:/scripts
+    command: [ "/scripts/setup.sh" ]
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+
+  mongo1:
+    image: mongo:5.0.18
+    hostname: mongo1
+    container_name: mongo1
+    ports:
+      - 27017:27017
+    networks:
+      default:
+    restart: always
+    command: mongod --bind_ip_all --dbpath /data/db --replSet "rs0" --port 27017
+    volumes:
+      - mongodata1:/data/db
+      - mongodatacfg1:/data/configdb
+
+  mongo2:
+    image: mongo:5.0.18
+    hostname: mongo2
+    container_name: mongo2
+    ports:
+      - 27018:27018
+    networks:
+      default:
+    restart: always
+    command: mongod --bind_ip_all --dbpath /data/db --replSet "rs0" --port 27018
+    volumes:
+      - mongodata2:/data/db
+      - mongodatacfg2:/data/configdb
+
+  mongo3:
+    image: mongo:5.0.18
+    hostname: mongo3
+    container_name: mongo3
+    ports:
+      - 27019:27019
+    networks:
+      default:
+    restart: always
+    command: mongod --bind_ip_all --dbpath /data/db --replSet "rs0" --port 27019
+    volumes:
+      - mongodata3:/data/db
+      - mongodatacfg3:/data/configdb
+
+  redis:
+    container_name: uluru_redis
+    image: bitnami/redis:latest
+    restart: always
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '6379:6379'
+
+volumes:
+  mongodata1:
+  mongodatacfg1:
+  mongodata2:
+  mongodatacfg2:
+  mongodata3:
+  mongodatacfg3:
+
+
+networks:
+  default:

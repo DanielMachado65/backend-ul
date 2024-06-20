@@ -1,0 +1,207 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+# @name mycars
+
+GET {{host}}/api/my-cars/car
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+@carId = {{mycars.response.body.$.data.items[0].id}}
+
+# @name getCarById
+
+GET {{host}}/api/my-cars/car/{{carId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/my-cars/car/plan/availability
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/car
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "fipeId": "0242497",
+  "plate": "RUO7A85"
+}
+
+###
+
+POST {{host}}/api/my-cars/car
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "fipeId": "0242497",
+  "plate": "RUO7A85",
+  "creditCardId": "cust-card_1ef21d4d-a3c2-6b86-8fd5-37941508155c"
+}
+
+###
+
+POST {{host}}/api/my-cars/premium-plan
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "myCarProductId": "{{carId}}",
+  "creditCardId": "cust-card_1ef21d4d-a3c2-6b86-8fd5-37941508155c"
+}
+
+###
+
+# @name sendNotification
+## Envia notificação para o usuário
+## Normalmente é disparado por Scheduler
+## event: query-fine-alert, query-revision-plan, query-fipe-price
+
+POST {{host}}/api/my-cars/notify-schedule
+Content-Type: application/json
+x-scheduler-token: {{schedulerToken}}
+
+{
+  "event": "query-revision-plan"
+}
+
+### 
+
+POST {{host}}/api/my-cars/{{carId}}/datasheet/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/fines/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/fipe-price/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/insurance-quote/query
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "zipCode": "37540000"
+}
+
+###
+
+### DELETE
+
+DELETE {{host}}/api/my-cars/car/{{carId}}
+Content-Type: application/json
+Authorization: {{token}}
+
+### 
+
+POST {{host}}/api/my-cars/{{carId}}/main-flaws/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/owner-review/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/parts-and-values/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/my-cars/{{carId}}/revision-plan/query
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/my-cars/car/{{carId}}/alert-on-query/config
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+PUT {{host}}/api/my-cars/car/{{carId}}/alert-on-query/config
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "isEnabled": true,
+  "notificationChannels": ["push", "email"]
+}
+
+### 
+
+GET {{host}}/api/my-cars/car/{{carId}}/alert-revision/config
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+PUT {{host}}/api/my-cars/car/{{carId}}/alert-revision/config
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "isEnabled": true,
+  "notificationChannels": ["push", "email"],
+  "mileageKm": 30009,
+  "mileageKmMonthly": 1000,
+  "shouldNotify7DaysBefore": true,
+  "shouldNotify15DaysBefore": true,
+  "shouldNotify30DaysBefore": true
+}
+
+### Notificações - Rota para pegar alerta de multas
+
+GET {{host}}/api/my-cars/car/{{carId}}/alert-revision/config
+Content-Type: application/json
+Authorization: {{token}}
+
+### Notificações - Rota para pegar alerta de multas
+
+GET {{host}}/api/my-cars/car/{{carId}}/alert-fine/config
+Content-Type: application/json
+Authorization: {{token}}
+
+### Notificações - Rota para update de alerta de multas
+
+PUT {{host}}/api/my-cars/car/{{carId}}/alert-fine/config
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "isEnabled": true,
+  "notificationChannels": ["push", "email"]
+}

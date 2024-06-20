@@ -1,0 +1,26 @@
+@emailToken=e362a861-7666-4f6c-9851-00a5ece9b18a
+
+# @name sendEmail
+## Envia notificação para o usuário de potenciais clientes
+
+POST {{host}}/api/email/potencial-clients
+Content-Type: application/json
+x-scheduler-token: {{emailToken}}
+
+{
+  "to": [
+    "teste@gmail.com",
+    "teste2@gmail.com"
+  ],
+  "users": [
+    {
+      "id": "653fbbb9615aa7a25d128ff3"
+    },
+    {
+      "id": "5fbfb35e9b1ea80011be97db"
+    },
+    {
+      "id": "60c62913b8b3f0001188ae27"
+    }
+  ]
+}

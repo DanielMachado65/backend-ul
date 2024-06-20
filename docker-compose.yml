@@ -1,0 +1,75 @@
+version: '3.1'
+
+services:
+  mongo-setup:
+    container_name: mongo-setup
+    image: mongo:4.4
+    restart: on-failure
+    networks:
+      default:
+    volumes:
+      - ./scripts:/scripts
+    entrypoint: [ "/scripts/setup.sh" ]
+    depends_on:
+      - mongo1
+      - mongo2
+      - mongo3
+
+  mongo1:
+    hostname: mongo1
+    container_name: mongo1
+    image: mongo:4.4
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    networks:
+      default:
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false" ]
+    volumes:
+      - mongodata1:/data/db
+      - mongodatacfg1:/data/configdb
+
+  mongo2:
+    hostname: mongo2
+    container_name: mongo2
+    image: mongo:4.4
+    expose:
+      - 27018
+    ports:
+      - 27018:27018
+    networks:
+      default:
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false", "--port", "27018" ]
+    volumes:
+      - mongodata2:/data/db
+      - mongodatacfg2:/data/configdb
+
+  mongo3:
+    hostname: mongo3
+    container_name: mongo3
+    image: mongo:4.4
+    expose:
+      - 27019
+    ports:
+      - 27019:27019
+    networks:
+      default:
+    restart: always
+    entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "rs0", "--journal", "--dbpath", "/data/db", "--enableMajorityReadConcern", "false", "--port", "27019" ]
+    volumes:
+      - mongodata3:/data/db
+      - mongodatacfg3:/data/configdb
+
+volumes:
+  mongodata1:
+  mongodatacfg1:
+  mongodata2:
+  mongodatacfg2:
+  mongodata3:
+  mongodatacfg3:
+
+networks:
+  elastic:

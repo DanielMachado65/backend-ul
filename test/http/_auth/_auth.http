@@ -1,0 +1,48 @@
+POST https://api.olhonocarro.com.br/auth/login
+Content-Type: application/json
+
+{
+  "username": "{{username}}",
+  "password": "{{password}}"
+}
+
+> {%
+client.global.set("token", response.body.body.token);
+client.global.set("supper_token", response.body.body.supper_token);
+client.global.set("user_id", response.body.body.user._id);
+%}
+
+###
+
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+GET {{host}}/api/auth/password-recovery?email=teste@email.com.br
+Content-Type: application/json
+
+###
+
+GET {{host}}/api/auth/password-recovery?cpf=00011122233
+Content-Type: application/json
+
+###
+
+POST {{host}}/api/auth/password-change
+Content-Type: application/json
+
+{
+  "resetToken": "token",
+  "password": "123456"
+}
+
+###

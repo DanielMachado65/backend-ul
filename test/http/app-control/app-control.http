@@ -1,0 +1,12 @@
+###
+
+POST {{host}}/api/app-control/version-upgrade
+Content-Type: application/json
+
+{
+  "operatingSystem":"ios",
+  "currentAppVersion":"1.1.0",
+  "storeVersion":"1.3.6"
+}
+
+###

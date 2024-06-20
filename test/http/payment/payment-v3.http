@@ -1,0 +1,103 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+###
+
+# @name ccToken
+POST {{arc_host}}/api/payment/card_token
+Content-Type: application/json
+
+{
+  "holder_name": "GANDALF THE GRAY",
+  "card_number": "4111111111111111",
+  "expiration_date": "01/2030",
+  "security_code": "123"
+}
+
+###
+
+@cardToken = {{ccToken.response.body.$.data.token}}
+
+###
+
+GET {{host}}/api/v3/payment/649db5fbcf5e56472ce0f349/status
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/v3/payment/bank-slip
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "cart": {
+    "products": {
+      "queries": [
+        {
+          "code": "98",
+          "amount": 1
+        }
+      ],
+      "packages": [],
+      "subscriptions": []
+    }
+  }
+}
+
+###
+
+POST {{host}}/api/v3/payment/credit-card
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "token": "{{cardToken}}",
+  "cart": {
+    "products": {
+      "queries": [
+        {
+          "code": "98",
+          "amount": 1
+        }
+      ],
+      "packages": [],
+      "subscriptions": []
+    }
+  }
+}
+
+###
+
+POST {{host}}/api/v3/payment/pix
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "cart": {
+    "products": {
+      "queries": [
+        {
+          "code": "98",
+          "amount": 1
+        }
+      ],
+      "packages": [],
+      "subscriptions": []
+    }
+  }
+}
+
+###

@@ -1,0 +1,54 @@
+GET {{host}}/api/owner-review/v2/vehicle/brands
+Content-Type: application/json
+
+###
+
+GET {{host}}/api/owner-review/get-owner-reviews?brandModelCode=149502&fipeId=40010&page=1&perPage=3
+Content-Type: application/json
+
+###
+
+### Send Review Owner
+POST {{host}}/api/owner-review
+Content-Type: application/json
+
+{
+  "ranking": {
+    "comfort": 7,
+    "cambium": 6,
+    "city_consumption": 7,
+    "road_consumption": 7,
+    "performance": 7,
+    "drivability": 7,
+    "internal_space": 6,
+    "stability": 7,
+    "brakes": 8,
+    "trunk": 0,
+    "suspension": 6,
+    "cost_benefit": 7,
+    "total_score": 6.3
+  },
+  "review": {
+    "license_plate": "ABC1234",
+    "strengths": "teste",
+    "flaws": "teste",
+    "cons": "teste",
+    "general_feedback": "teste",
+    "km": 6500,
+    "acquisition_year": 0
+  },
+  "vehicle": {
+    "brandName": "VOLKSWAGEN",
+    "modelName": "SANTANA",
+    "modelYear": 2017,
+    "brandYear": 2017,
+    "versionName": "CS/CD/CG",
+    "fipeId": "51020",
+    "codModelBrand": 999999
+  },
+  "user": {
+    "name": "usuario teste",
+    "email": "teste+45@gmail.com",
+    "anonymous": true
+  }
+}

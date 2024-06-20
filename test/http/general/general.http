@@ -1,0 +1,22 @@
+GET {{host}}/api/general/location/postal-code/37540000
+Content-Type: application/json
+
+###
+
+GET {{host}}/api/general/location/MG/cities
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/general/location/states
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/general/feature-flags
+Content-Type: application/json
+Authorization: {{token}}
+
+###

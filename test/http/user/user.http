@@ -1,0 +1,168 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+###
+
+GET {{host}}/api/user
+Content-Type: application/json
+Authorization: {{token}}
+# Supper: {{supper_token}}
+
+###
+
+POST {{host}}/api/user/signup
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.196 Mobile Safari/537.36
+
+{
+  "email": "gandalf_the_gray11@lotr.com",
+  "name": "Gandalf The Gray",
+  "password": "654321",
+  "passwordConfirmation": "654321",
+  "cpf": "76454721035",
+  "phoneNumber": "11918523659",
+  "creationOrigin": "website",
+  "consents": [
+    {
+      "channelType": "whatsapp",
+      "consentType": "news",
+      "hasGivenConsent": false
+    }
+  ],
+  "address": {
+    "zipCode": "01153000",
+    "city": "São Paulo",
+    "state": "SP",
+    "neighborhood": "Centro",
+    "street": "Rua Tal",
+    "complement": "",
+    "number": "42"
+  }
+}
+
+### 
+
+GET {{host}}/api/user/profile
+Content-Type: application/json
+Authorization: {{token}}
+
+
+###
+
+PUT {{host}}/api/user/profile
+Content-Type: application/json
+Authorization: {{token}}
+# Supper: {{supper_token}}
+
+{
+  "phoneNumber": "11991929394"
+}
+
+###
+
+PATCH {{host}}/api/user/set-to-deletion
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "password": "321321321"
+}
+
+###
+
+PATCH {{host}}/api/user/cancel-deletion
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "email": "alisson.morais@olhonocarro.com.br"
+}
+
+###
+
+GET {{host}}/api/user/when-deleted
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/user/data/download
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/user/log?page=1&perPage=10
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/user/log/download
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/user/consent
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+PUT {{host}}/api/user/consent/61a95529d3a925fed779a932
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "hasGivenConsent": false
+}
+
+###
+
+POST {{host}}/api/user/consent
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "consentId": null,
+  "channelType": "zapay",
+  "consentType": "payment:read",
+  "hasGivenConsent": true
+}
+
+###
+
+GET {{host}}/api/user/webhook
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+PUT {{host}}/api/user/webhook
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "webhookUrls": [
+    "http://localhost:3333",
+    "http://localhost:3333",
+    "http://localhost:3333",
+    "http://localhost:3333",
+    "http://localhost:3333"
+  ]
+}
+
+###

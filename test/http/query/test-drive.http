@@ -1,0 +1,66 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+###
+
+GET {{host}}/api/test-drive/representation/63d02eacbe264940f0ed2a79
+Content-Type: application/json
+
+###
+
+POST {{host}}/api/test-drive/
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+	"keys": {
+		"plate": "FRR2815"
+	},
+	
+	"userCity": "São Paulo",
+	"navigationToken": "adasd",
+}
+
+###
+
+GET {{host}}/api/v2/test-drive/649c6d3cadc354023861a199
+
+###
+
+POST {{host}}/api/v2/test-drive
+Content-Type: application/json
+Authorization: {{token}}
+User-Agent: Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.5735.196 Mobile Safari/537.36
+
+{
+	"keys": {
+		"plate": "XXX0000"
+	},	
+	"userCity": "São Paulo"
+}
+
+###
+
+GET {{host}}/api/v2/test-drive/total
+Content-Type: application/json
+
+###
+
+PUT {{host}}/api/v2/test-drive/total
+Content-Type: application/json
+
+{
+	"token": "e362a861-7666-4f6c-9851-00a5ece9b18a"
+}

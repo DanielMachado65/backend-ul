@@ -1,0 +1,54 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+### 
+
+POST {{host}}/api/indicate-and-earn/transaction/debit-with-onc-wallet
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "valueInCents": 123
+}
+
+### 
+
+POST {{host}}/api/indicate-and-earn/indicate
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "email": "danielmachadopintos+1@gmail.com",
+  "participantId": "9d42b3b7-1165-44a2-8dd1-305e97148f3d"
+}
+
+###
+
+POST {{host}}/api/indicate-and-earn/transaction-debit-withdrawal
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "pixType": "CPF",
+  "pixKey": "08882412911",
+  "valueInCents": 123
+}
+
+
+### 
+
+GET {{host}}/api/indicate-and-earn/transactions-credit
+Content-Type: application/json
+Authorization: {{token}}

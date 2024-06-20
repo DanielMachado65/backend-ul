@@ -1,0 +1,19 @@
+POST {{host}}/api/webhook/arc
+Content-Type: application/json
+X-ARC-TOKEN: fbc2d6a2-cc04-40f4-b060-acd597a3d68f
+
+{
+  "__meta__": {
+    "timestamp": "2023-02-15T11:39:20.412272"
+  },
+  "event": "payment_updated",
+  "payload": {
+    "customer_id": "cust_1edac8f6-c3a4-626e-9b0b-6ecfbeeb397c",
+    "idempotence": "63ecc463abc9d38c007beaa4",
+    "payment_id": "paym_1edad256-0435-6630-878a-1c42d955c7bc",
+    "tenant": "tnt_1ed67723-17f7-67be-81e3-2b23709d5d02"
+  },
+  "token": "fbc2d6a2-cc04-40f4-b060-acd597a3d68f"
+}
+
+###

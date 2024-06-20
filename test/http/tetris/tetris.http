@@ -1,0 +1,25 @@
+GET {{tetris_host}}/health-check
+
+###
+
+POST {{tetris_host}}/execute-query
+Content-Type: application/json
+
+{
+  "templateQueryRef": "2",
+  "queryRef": "449b06cc095626d39b4cfd60",
+  "keys": { "plate": "HCF5453" },
+  "applicationId": "4d680247-a005-52d5-94ca-aacc59233849"
+}
+
+###
+
+GET {{tetris_host}}/query/654f9832aa447eb248cba602
+Content-Type: application/json
+
+###
+
+GET {{tetris_host}}/query/by-query-ref/MTcwMTc3OTY3ODUxMy4zNjA2
+Content-Type: application/json
+
+###

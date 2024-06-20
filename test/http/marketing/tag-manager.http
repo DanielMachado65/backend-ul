@@ -1,0 +1,46 @@
+POST https://gtm-k7f6w2m-owewn.uc.r.appspot.com/onc-backend
+Content-Type: application/json
+x-gtm-server-preview: ZW52LTh8aTdQY1hVVFlYTUdWZ2xTM01LOHNqQXwxODVhYzQ5YzE2ODIwYWM0Y2ZiMGY=
+
+{
+  "client_id": "QWE123QWE123ASD123",
+  "user_id": "QWE123QWE123ASD123",
+  "non_personalized_ads": false,
+  "events": [
+    {
+      "name": "purchase",
+      "params": {
+        "affiliation": "Olho No Carro",
+        "transaction_id": "TID00100",
+        "coupon": "PROMO10",
+        "currency": "BRL",
+        "tax": 0,
+        "shipping": 0,
+        "value": 9.9,
+        "items": [
+          {
+            "item_id": "SKU_123456",
+            "item_name": "Veiculo Completa",
+            "currency": "BRL",
+            "tax": 0,
+            "discount": 0,
+            "price": 9.9,
+            "quantity": 1
+          }
+        ],
+        "extras": {
+          "user_email": "gandalf@email.com",
+          "payment_method": "credit_card",
+          "fbExtras": {
+            "user_email_hashed": "6c869391d945492cb8ac9c62bde4d208ec0abea307bfd738dd7941d311934a26",
+            "content_type": "product",
+            "content_ids": ["SKU_123456"],
+            "content_name": ["Veiculo Completa"]
+          }
+        }
+      }
+    }
+  ]
+}
+
+###

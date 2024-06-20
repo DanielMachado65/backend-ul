@@ -1,0 +1,4 @@
+GET {{host}}/api/company/all-available-info-comparison
+Content-Type: application/json
+
+###

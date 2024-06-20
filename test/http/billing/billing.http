@@ -1,0 +1,113 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+###
+
+GET {{host}}/api/billing/current-balance
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+###
+
+GET {{host}}/api/billing/query-price/100
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+###
+
+GET {{host}}/api/billing/query-price
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/billing/query-price
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+###
+
+GET {{host}}/api/billing/query-price
+Content-Type: application/json
+
+###
+
+POST {{host}}/api/billing/add-credits
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+{
+  "userId": "5daf39ddc5c67d3ac8abbdc6",
+  "valueInCents": 1234
+}
+
+###
+
+POST {{host}}/api/billing/deduct-credits
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+{
+  "userId": "5daf39ddc5c67d3ac8abbdc6",
+  "valueInCents": 1234
+}
+
+###
+
+POST {{host}}/api/billing/charge-user
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+{
+  "userId": "5daf39ddc5c67d3ac8abbdc6",
+  "queryCode": 10000
+}
+
+###
+
+POST {{host}}/api/billing/chargeback-user
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+{
+  "balanceId": "6194f2388e719f2914520c29"
+}
+
+###
+
+GET {{host}}/api/billing/account-funds
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/billing/payment-history
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/billing/credit-card
+Content-Type: application/json
+Authorization: {{token}}
+
+###

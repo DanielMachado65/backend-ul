@@ -1,0 +1,141 @@
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+User-Agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36
+User-Agent-Mobile: Mozilla/5.0 (Linux; Android 4.2.2; GT-I9505 Build/JDQ39) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.59 Mobile Safari/537.36
+
+{
+  "email": "{{username}}",
+  "password": "{{password}}"
+}
+
+###
+
+@token = {{login.response.body.$.data.token}}
+
+###
+
+GET {{host}}/api/query/615ec9a95dd55f00117b7b95
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/query/query-confirmation
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "plate": "ABC1234"
+}
+
+###
+
+GET {{host}}/api/query/query-composer/by-code/10000
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/query/61449d8749ac3000112cb5ac/services
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/query
+Content-Type: application/json
+Authorization: {{token}}
+Supper: {{supper_token}}
+
+{
+  "queryCode":15,
+  "mayDuplicate": true,
+  "queryKeys": {
+    "plate": "LCE7096"
+  }
+}
+
+###
+
+GET {{host}}/api/query/representation/65b84e2a0ead0e98537252c2?clientType=website
+Content-Type: application/json
+
+###
+
+GET {{host}}/api/query/v2/representation/65b84e2a0ead0e98537252c2?clientType=mobile
+Content-Type: application/json
+
+###
+
+POST {{host}}/api/query/representation
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "queryCode": 15,
+  "clientType": "mobile",
+  "mayDuplicate": true,
+  "keys": {
+    "plate": "QRK3C27"
+  }
+}
+
+###
+
+POST {{host}}/api/query/v2/representation
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "queryCode": 100,
+  "clientType": "website",
+  "mayDuplicate": true,
+  "keys": {
+    "plate": "QRK3C27"
+  }
+}
+
+###
+
+PUT {{host}}/api/query/reprocess/61d2fdd3d13ea259d7c9c2a5/service-log/61d2fe0cd13ea259d7c9c2ac
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/query/history?page=1&perPage=10&search=FRR2815
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+GET {{host}}/api/query/auto-reprocess/64d103967ffd582673e01
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+PUT {{host}}/api/query/v3/reprocess/64f22276608310fa82926a02
+Content-Type: application/json
+Authorization: {{token}}
+
+###
+
+POST {{host}}/api/query/pre
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+  "plate": "RDT1D61",
+  "chassis": null,
+  "engineNumber": null
+}
+
+###
+
+GET {{host}}/api/query/has-informations?plate=ABC1234
+Content-Type: application/json
+Authorization: {{token}}
+
+###

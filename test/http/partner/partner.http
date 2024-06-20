@@ -1,0 +1,4 @@
+GET {{host}}/api/partner/incomings?month=7&year=2021
+Authorization: {{token}}
+
+###

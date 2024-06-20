@@ -1,0 +1,26 @@
+### @name create
+
+GET {{host}}/api/coupon/count-created
+Content-Type: application/json
+Authorization: {{token}}
+
+### @name validate 
+@code = F71mBG
+
+POST {{host}}/api/coupon/v2/validate/{{code}}
+Content-Type: application/json
+
+{
+    "packages":[
+        {
+        "id":"5abebd5830694740b8848ba3",
+        "amount":1
+        }
+    ],
+    "queries":[
+        {
+        "code": "100",
+        "amount":1 
+        }
+    ]
+}

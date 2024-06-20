@@ -1,0 +1,5 @@
+GET {{host}}/api/product/credit-packs
+Content-Type: application/json
+#Authorization: {{token}}
+
+###

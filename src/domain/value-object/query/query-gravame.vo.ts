@@ -1,0 +1,21 @@
+export type QueryGravameVo = {
+  readonly municipio: string;
+  readonly agente: string;
+  readonly anoFabricacao: string;
+  readonly anoModelo: string;
+  readonly chassi: string;
+  readonly codigoAgente: string;
+  readonly contrato: string;
+  readonly dataEmissao: string;
+  readonly dataInclusao: string;
+  readonly documentoAgente: string;
+  readonly documentoFinanciado: string;
+  readonly numero: string;
+  readonly observacoes: string;
+  readonly placa: string;
+  readonly situacao: string;
+  readonly uf: string;
+  readonly ufPlaca: string;
+  readonly responsavel: string;
+  readonly renavam: string;
+};
